@@ -16,9 +16,9 @@ export const Pulse = keyframes`
   }
 `;
 
-export const ChunksLoaderWrap = styled(Flex)`
+export const ChunksLoaderWrapper = styled(Flex)`
   flex: 1;
-  height: calc(100vh - ${({ theme: { mp } }) => mp.md}); /* Use theme spacing */
+  height: calc(100vh - ${({ theme: { mp } }) => mp.md});
 `;
 
 export const Logo = styled.img`

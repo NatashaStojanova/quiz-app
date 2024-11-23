@@ -5,12 +5,13 @@ import { useUserContext } from "context/UserContext";
 import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Input } from "components/Input";
-import { CardWrapper, Logo } from "./styles";
+import { Card } from "components/Card";
+import { Logo } from "./styles";
 
 const WelcomePage = () => {
   const navigate = useNavigate();
-  const { userState, setUserState } = useUserContext();
-  const [inputValue, setInputValue] = useState(userState.user || "");
+  const { setUserState } = useUserContext();
+  const [inputValue, setInputValue] = useState("");
 
   const handleStartClick = () => {
     if (!inputValue) return;
@@ -22,10 +23,12 @@ const WelcomePage = () => {
   };
 
   return (
-    <CardWrapper
+    <Card
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      p="lg"
+      height="450px"
     >
       <Logo src="/assets/quiz-time-logo.svg" alt="Quiz Logo" />
       <Input
@@ -41,7 +44,7 @@ const WelcomePage = () => {
       <Button onClick={handleStartClick} disabled={!inputValue}>
         Start
       </Button>
-    </CardWrapper>
+    </Card>
   );
 };
 

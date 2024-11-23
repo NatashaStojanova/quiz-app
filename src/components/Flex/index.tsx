@@ -12,6 +12,7 @@ interface FlexProps extends SpacingProps {
   alignItems?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
   flexDirection?: "row" | "row-reverse" | "column" | "column-reverse";
   flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
+  width?: string | number; // Allow both string and numeric values
 }
 
 export const Flex = styled.div<FlexProps>`
@@ -20,5 +21,6 @@ export const Flex = styled.div<FlexProps>`
   align-items: ${({ alignItems = "stretch" }) => alignItems};
   flex-direction: ${({ flexDirection = "row" }) => flexDirection};
   flex-wrap: ${({ flexWrap = "nowrap" }) => flexWrap};
+  width: ${({ width }) => (typeof width === "number" ? `${width}px` : width)};
   ${({ theme, ...props }) => applySpacing(props, theme)};
 `;

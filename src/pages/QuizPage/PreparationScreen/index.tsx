@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { Text } from "components/Text";
-import { ScreenWrapper } from "./style";
+import { PreparationWrapper } from "./style";
 
 interface IPreparationScreenProps {
   onComplete: () => void;
@@ -51,7 +51,7 @@ export const PreparationScreen = ({ onComplete }: IPreparationScreenProps) => {
   }, [count]);
 
   return (
-    <ScreenWrapper
+    <PreparationWrapper
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
@@ -68,6 +68,6 @@ export const PreparationScreen = ({ onComplete }: IPreparationScreenProps) => {
       >
         {count > 0 ? count : "Go!"}
       </Text>
-    </ScreenWrapper>
+    </PreparationWrapper>
   );
 };

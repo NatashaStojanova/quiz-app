@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ChunksLoaderWrap, Logo } from "./style";
+import { ChunksLoaderWrapper, Logo } from "./style";
 
 export const ChunksLoader = () => {
   useEffect(() => {
@@ -10,8 +10,8 @@ export const ChunksLoader = () => {
   }, []);
 
   return (
-    <ChunksLoaderWrap justifyContent="center" alignItems="center">
+    <ChunksLoaderWrapper justifyContent="center" alignItems="center">
       <Logo />
-    </ChunksLoaderWrap>
+    </ChunksLoaderWrapper>
   );
 };

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUserScore } from "models/UserScore";
+import { Flex } from "components/Flex";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Text } from "components/Text";
+import { Card } from "components/Card";
 import { columns } from "./utils";
-import { LeaderboardWrapper, StyledFlex } from "./style";
 
 const Leaderboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,14 +30,15 @@ const Leaderboard = () => {
   };
 
   return (
-    <LeaderboardWrapper
+    <Card
       flexDirection="column"
       justifyContent="space-between"
       alignItems="center"
-      px="sm"
-      py="lg"
+      width="400px"
+      height="550px"
+      p="lg"
     >
-      <StyledFlex flexDirection="column">
+      <Flex flexDirection="column" alignItems="center" width="100%">
         <Text fontWeight="bold" fontSize="h2" mt="lg" mb="md">
           Leaderboard
         </Text>
@@ -54,7 +56,7 @@ const Leaderboard = () => {
             maxRowsPerPage={8}
           />
         )}
-      </StyledFlex>
+      </Flex>
       <Button
         onClick={() => navigate("/")}
         variant="secondary"
@@ -63,7 +65,7 @@ const Leaderboard = () => {
       >
         Back
       </Button>
-    </LeaderboardWrapper>
+    </Card>
   );
 };
 

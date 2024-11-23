@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GET_COUNTRIES } from "graphql/queries";
 import ROUTES from "routes/routes";
 import { generateQuizQuestions } from "helpers/quizHelpers";
+import { useUserContext } from "context/UserContext";
 import { Flex } from "components/Flex";
 import { Text } from "components/Text";
 import { Loading } from "components/Loading";
@@ -14,8 +15,7 @@ import { Question } from "components/Question";
 import { AnswerButton } from "components/AnswerButton";
 import { ProgressBar } from "components/ProgressBar";
 import { NavigationButtons } from "components/NavigationButtons";
-import { AppWrapper, AnswersWrapper } from "./style";
-import { useUserContext } from "context/UserContext"; // Import context
+import { QuizWrapper, AnswersWrapper } from "./style";
 
 export const QuizScreen = () => {
   const { data, loading, error } = useQuery(GET_COUNTRIES);
@@ -109,7 +109,7 @@ export const QuizScreen = () => {
   const isLocked = currentAnswer !== null && currentAnswer !== undefined; // Check if the current question is locked
 
   return (
-    <AppWrapper
+    <QuizWrapper
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
@@ -158,6 +158,6 @@ export const QuizScreen = () => {
         disablePrevious={currentQuestionIndex === 0}
         disableNext={!selectedAnswers[currentQuestionIndex]} // Enable Next if the question is answered
       />
-    </AppWrapper>
+    </QuizWrapper>
   );
 };

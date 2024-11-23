@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Flex } from "components/Flex";
 
-export const AppWrapper = styled(Flex)`
+export const QuizWrapper = styled(Flex)`
   width: 800px;
   text-align: center;
 `;

@@ -7,7 +7,7 @@ import { Flex } from "components/Flex";
 import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Divider } from "components/Divider/style";
-import { Wrapper } from "./style";
+import { Card } from "components/Card";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -42,12 +42,12 @@ const ResultsPage = () => {
   }, []);
 
   return (
-    <Wrapper
+    <Card
       ref={wrapperRef}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      p="lg"
+      height="500px"
     >
       <Text fontWeight="bold" fontSize="h1" color="dark" mb="sm">
         Result:
@@ -80,7 +80,7 @@ const ResultsPage = () => {
       <Button ref={buttonRef} variant="primary" onClick={handleStartAgainClick}>
         Start 🚀
       </Button>
-    </Wrapper>
+    </Card>
   );
 };
 

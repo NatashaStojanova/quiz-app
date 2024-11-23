@@ -6,6 +6,17 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "theme/*": ["theme/*"],
+      "components/*": ["components/*"],
+      "pages/*": ["pages/*"],
+      "helpers/*": ["helpers/*"],
+      "models/*": ["models/*"],
+      "routes/*": ["routes/*"],
+      "graphql/*": ["graphql/*"]
+    },
+    "types": ["styled-components"],
 
     /* Bundler mode */
     "moduleResolution": "Bundler",

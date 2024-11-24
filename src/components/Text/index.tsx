@@ -1,6 +1,6 @@
 import React from "react";
 import { TextProps } from "./utils";
-import { StyledText } from "./styles";
+import { StyledText } from "./style";
 
 export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
   (

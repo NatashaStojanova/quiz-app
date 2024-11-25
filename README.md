@@ -160,7 +160,7 @@ This structure keeps all route definitions in one place, making it easier to upd
 
 - I follow clean coding standards to ensure readability and maintainability.
 
-- Hard-to-understand or complex areas in the codebase include short comments explaining the logic.
+- Hard to understand or complex areas in the codebase include short comments explaining the logic.
 
   
 

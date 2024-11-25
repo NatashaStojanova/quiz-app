@@ -10,6 +10,7 @@ export const generateQuizQuestions = (
   countries.forEach((country) => {
     // Capital Question
     questions.push({
+      type: "capital",
       question: `What is the capital of ${country.name}?`,
       answers: generateUniqueAnswers(
         country.capital,
@@ -18,6 +19,7 @@ export const generateQuizQuestions = (
     });
     // Continent Question
     questions.push({
+      type: "continent",
       question: `Which continent is ${country.name} in?`,
       answers: generateUniqueAnswers(
         country.continent.name,
@@ -28,6 +30,7 @@ export const generateQuizQuestions = (
     const language = country.languages[0]?.name || "Unknown";
     if (language !== "Unknown") {
       questions.push({
+        type: "language",
         question: `Which language is spoken in ${country.name}?`,
         answers: generateUniqueAnswers(
           language,
@@ -36,10 +39,40 @@ export const generateQuizQuestions = (
       });
     }
   });
-  // Shuffle all questions and select TOTAL_QUESTIONS_NUMBER random questions
-  return questions
-    .sort(() => Math.random() - 0.5)
-    .slice(0, TOTAL_QUESTIONS_NUMBER);
+
+  // Shuffle and ensure no consecutive questions of the same type
+  return selectQuestionsWithoutRepeatingTypes(
+    questions,
+    TOTAL_QUESTIONS_NUMBER
+  );
+};
+
+// Helper function to select questions without consecutive types
+const selectQuestionsWithoutRepeatingTypes = (
+  questions: IQuizQuestion[],
+  totalQuestions: number
+): IQuizQuestion[] => {
+  const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  const finalQuestions: IQuizQuestion[] = [];
+
+  while (
+    finalQuestions.length < totalQuestions &&
+    shuffledQuestions.length > 0
+  ) {
+    const nextQuestion = shuffledQuestions.shift()!;
+    if (
+      finalQuestions.length === 0 || // First question, no need to check
+      finalQuestions[finalQuestions.length - 1].type !== nextQuestion.type // Ensure type doesn't repeat
+    ) {
+      finalQuestions.push(nextQuestion);
+    } else {
+      // If the next question type repeats, push it back and reshuffle
+      shuffledQuestions.push(nextQuestion);
+      shuffledQuestions.sort(() => Math.random() - 0.5);
+    }
+  }
+
+  return finalQuestions;
 };
 
 // Helper function to generate answers with the required format

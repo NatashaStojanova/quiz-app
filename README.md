@@ -42,6 +42,19 @@ npm run dev
 
 The app will be available at `http://localhost:5173/`.
 
+### Branch Structure
+
+This project uses two branches to organize development and ensure stability:
+
+1. **`dev` Branch:**
+   - All feature development and bug fixes are committed to this branch.
+   - Used for ongoing work and testing.
+
+2. **`main` Branch:**
+   - Contains the final, stable version of the code.
+   - Only code reviewedfrom the `dev` branch is merged into `main`.
+
+
   
 
 ---

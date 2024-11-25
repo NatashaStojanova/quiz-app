@@ -1,79 +1,217 @@
+  
+
 # Quiz Application
 
-A lightweight and engaging quiz application built with React, showcasing modern frontend development practices, reusable components, and state management.
+  
+
+This is a simple and engaging quiz app built using React. It uses reusable components, modern state management, and a consistent design system.
+
+  
 
 ---
 
-## Features
+  
 
-### Custom Components
-- **Reusability:** Developed modular and reusable components (`Card`, `Flex`, `Button`, `Input`, `Text`, `Table`) for maintainability.
-- **Dynamic Props:** Components are highly configurable through props for dimensions, spacing, colors, and alignment.
-- **Theming:** Centralized styling through a `theme` to ensure consistent spacing, colors, and UI elements.
+## How to Start the Application
+
+  
+
+1. ****Clone the repository:****
+
+```bash
+
+git clone git@github.com:NatashaStojanova/quiz-app.git
+
+```
+
+2. ****Install dependencies:****
+
+```bash
+
+npm install
+
+```
+
+3. ****Run the development server:****
+
+```bash
+
+npm run dev
+
+```
+
+The app will be available at `http://localhost:5173/`.
+
+  
+
+---
+
+  
+
+## Main Features
+
+  
+
+### Reusable Components
+
+- The app uses modular and reusable components, like `Button`, `Input`, and `Table`. These are located in the `components/` folder.
+
+- Each component has its own `index.js` (for logic) and `style.js` (for styling), making them easy to maintain and update.
+
+- Props allow you to configure dimensions, colors, spacing, and alignment dynamically.
+
+  
+
+### Centralized Theme
+
+- The `/theme` folder contains a centralized design system with:
+
+- ****Predefined Spacing:**** (`sm`, `md`, `lg`) for uniform padding and margins.
+
+- ****Colors:**** Standardized palette for consistent UI elements.
+
+- ****Border Radius:**** Common styles for rounded corners.
+
+- ****Why Use a Theme?****
+
+- It ensures consistency across the app.
+
+- Makes adding or changing design elements scalable and easy.
+
+  
 
 ### State Management
-- **React Context:** Used Context API to manage user data (`name`, `score`) across pages efficiently.
-- **LocalStorage:** Persisted leaderboard data for a seamless user experience across sessions.
+
+- ****React Context API**** is used for global state management (like the user name and score).
+
+- ****LocalStorage**** ensures the leaderboard data is saved even when you refresh or close the app.
+
+  
 
 ### Animations
-- **GSAP (GreenSock):** Added delightful animations (e.g., scaling, button bounce) to enhance user experience on the results page.
 
-### Validation
-- **Formik and Yup (Not Used):** Chose not to use these libraries as the form validation needs were minimal (only one required field for the user name).
+- ****GSAP (GreenSock)**** is used to add smooth animations to the app, such as scaling and button bouncing on the results page.
+
+  
+
+### Simple Validation
+
+- Instead of using libraries like Formik or Yup, basic validation is done directly in the code since the app only needs minimal validation (e.g., checking if the user's name is provided).
+
+  
 
 ---
+
+  
 
 ## Project Structure
 
+  
+
 ### File Organization
-- **`components/`**: Contains all reusable components like `Card`, `Button`, `Input`, and `Table`.
-- **`context/`**: Includes `UserContext` for managing application state globally.
-- **`pages/`**: Holds the main pages (`WelcomePage`, `ResultsPage`, `LeaderboardPage`).
-- **`theme/`**: Centralized styling for consistent design.
 
-### Theme Details
-The `theme` is defined in the `theme/` directory and provides:
-- **Spacing (`mp`)**: Predefined spacing values (e.g., `sm`, `md`, `lg`) used for margins and paddings. Applied dynamically via props like `p`, `px`, `my`.
-- **Colors (`palette`)**: Centralized color definitions for primary, secondary, success, and muted tones.
-- **Border Radius**: Standardized corner rounding for UI components.
+- ******`/components`**:**** Contains all reusable components (e.g., `Button`, `Card`, `Table`). Each component has its own logic (`index.js`) and styles (`style.js`).
 
-#### Why Use a Theme?
-- **Consistency:** Ensures uniform spacing, colors, and border radii across all components.
-- **Scalability:** Adding new design tokens is easy and keeps styles maintainable.
-- **Readability:** Simplifies styling by using named tokens instead of arbitrary values.
+- ******`/context`**:**** Includes the `UserContext` file for managing global state.
 
-Example:
-```javascript
-const theme = {
-  mp: {
-    sm: "4px",
-    md: "8px",
-    lg: "16px",
-  },
-  palette: {
-    primary: "#007bff",
-    success: "#28a745",
-    muted: "#6c757d",
-    white: "#ffffff",
-  },
-};
+- ******`/pages`**:**** Contains the main pages of the app:
 
-## Key Pages
+- `WelcomePage`: Where users can enter their name and start the quiz.
 
-### Welcome Page:
-- Users enter their name to start the quiz.
-- Includes a single input field with basic validation.
+- `ResultsPage`: Displays the user’s quiz results with animations.
 
-### Results Page:
-- Displays user results with GSAP animations for a smooth and engaging experience.
-- Includes buttons to restart the quiz or view the leaderboard.
+- `LeaderboardPage`: Shows a list of top scores.
 
-### Leaderboard Page:
-- Fetches and displays scores using React TanStack Table.
-- Handles data pagination and dynamic sorting.
+- ******`/routes`**:**** Manages application routes to keep navigation logic separate.
+
+- ******`/theme`**:**** Defines the design system for consistent colors, spacing, and styles.
+
+  
+
+### Routes
+
+The `/routes` folder contains constants for all the app routes, making navigation easy and maintainable:
+
+- ****Welcome Screen:**** `/`
+
+- ****Quiz Screen:**** `/quiz`
+
+- ****Results Screen:**** `/results`
+
+- ****Leaderboard Screen:**** `/leaderboard`
+
+  
+
+
+
+This structure keeps all route definitions in one place, making it easier to update or add routes in the future.
+
+  
 
 ---
 
-## Why Not Redux?
-- The app’s state complexity is minimal, making Redux unnecessary.
-- React Context and `useState` were sufficient for managing global and local state efficiently.
+  
+
+## Additional Notes
+
+  
+
+### Coding Standards
+
+- I follow clean coding standards to ensure readability and maintainability.
+
+- Hard-to-understand or complex areas in the codebase include short comments explaining the logic.
+
+  
+
+### Functional Components
+
+- The app uses functional components for consistency, except for the `ErrorBoundary` component.
+
+- ****Why Use a Class Component for ErrorBoundary?****
+
+- React currently does not have a clean way to implement an error boundary using functional components and class component was used for this specific case.
+
+  
+
+---
+
+  
+
+## Pages
+
+  
+
+### Welcome Page
+
+- Allows the user to enter their name and start the quiz.
+
+- Has an input field with basic validation.
+
+### Main Quiz Page
+
+- Displays a timer and the current question with four answer options.  
+- Shows a progress bar and the current question number out of the total.  
+- Includes navigation buttons to move to the previous or next question.  
+
+  
+
+### Results Page
+
+- Displays the user’s quiz score and results.
+
+- Includes animations to enhance user experience.
+
+- Provides buttons to restart the quiz or view the leaderboard.
+
+  
+
+### Leaderboard Page
+
+- Displays a list of high scores saved in `LocalStorage`.
+
+- Supports features like sorting and pagination using React TanStack Table.
+
+  
+
+---

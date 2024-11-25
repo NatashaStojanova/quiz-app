@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
-export const TimerWrapper = styled.div<{ time: number }>`
+const timeWrapperPropsToFilter = ["time"];
+
+export const TimerWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !timeWrapperPropsToFilter.includes(prop as string),
+})<{
+  time: number;
+}>`
   font-size: ${({ theme: { font } }) => font.sizes.large};
   font-weight: ${({ theme: { font } }) => font.weights.bold};
   text-align: center;

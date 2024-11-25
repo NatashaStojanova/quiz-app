@@ -9,6 +9,7 @@ export interface IAnswerButtonProps {
   isWrong?: boolean; // Indicates if the answer is wrong
   isFocused?: boolean; // Indicates if the button is focused
   onFocus?: () => void; // Callback for when the button is focused
+  shouldAnimate?: boolean; // Indicates if animation should be applied to elements
 }
 
 /**

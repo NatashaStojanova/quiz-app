@@ -15,19 +15,24 @@ export const AnswerButton = ({
   isDisabled,
   isFocused,
   onFocus,
+  shouldAnimate,
 }: IAnswerButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  // Focus handling for keyboard navigation
   useEffect(() => {
     if (isFocused && buttonRef.current) {
       buttonRef.current.focus();
     }
   }, [isFocused]);
 
+  // Animation handling based on shouldAnimate
   useEffect(() => {
+    if (!shouldAnimate) return; // Skip animations if shouldAnimate is false
+
     if (showCorrect && isCorrect) {
-      // Animation used to shake the correct answer when it is revealed
       if (isSelected) {
+        // Animation for correctly selected answer
         gsap.fromTo(
           buttonRef.current,
           { scale: 1 },
@@ -40,6 +45,7 @@ export const AnswerButton = ({
           }
         );
       } else {
+        // Animation for shaking the correct answer when revealed
         gsap.fromTo(
           buttonRef.current,
           { x: -5 },
@@ -53,7 +59,7 @@ export const AnswerButton = ({
         );
       }
     }
-  }, [isSelected, showCorrect, isCorrect, isWrong]);
+  }, [isSelected, showCorrect, isCorrect, isWrong, shouldAnimate]);
 
   return (
     <StyledButton

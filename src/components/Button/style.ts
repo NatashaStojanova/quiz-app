@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IButtonProps } from "./utils";
 
-export const StyledButton = styled.button<IButtonProps>`
+const buttonPropsToFilter = ["variant"];
+
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !buttonPropsToFilter.includes(prop),
+})<IButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +27,11 @@ export const StyledButton = styled.button<IButtonProps>`
   pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 
   &:hover {
-    opacity: ${({ disabled }) => (disabled ? 0.6 : 0.8)};
+    opacity: ${({ disabled }) => (disabled ? 0.2 : 1)};
+    background-color: ${({ theme: { palette }, variant }) =>
+      variant === "primary" || "secondary" ? palette.secondary : palette.white};
+    color: ${({ theme: { palette }, variant }) =>
+      variant === "primary" || "secondary" ? palette.white : palette.secondary};
   }
 `;
 

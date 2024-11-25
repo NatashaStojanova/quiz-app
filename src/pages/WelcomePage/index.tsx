@@ -22,6 +22,12 @@ const WelcomePage = () => {
     navigate(ROUTES.QUIZ_SCREEN);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && inputValue) {
+      handleStartClick();
+    }
+  };
+
   return (
     <Card
       flexDirection="column"
@@ -35,6 +41,7 @@ const WelcomePage = () => {
       <Input
         value={inputValue}
         onChange={setInputValue}
+        onKeyPress={handleKeyPress}
         placeholder="Enter your name"
         required
         validationMessage="*Name is a required field"

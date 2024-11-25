@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { IAnswerButtonProps } from "./utils";
 
+const buttonPropsToFilter = [
+  "showCorrect",
+  "isWrong",
+  "isDisabled",
+  "isSelected",
+  "isCorrect",
+];
+
 export const StyledButton = styled.button.withConfig({
-  shouldForwardProp: (prop) =>
-    ![
-      "showCorrect",
-      "isWrong",
-      "isDisabled",
-      "isSelected",
-      "isCorrect",
-    ].includes(prop),
+  shouldForwardProp: (prop) => !buttonPropsToFilter.includes(prop),
 })<
   IAnswerButtonProps & {
     showCorrect?: boolean;

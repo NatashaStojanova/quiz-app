@@ -3,22 +3,23 @@ import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useUserContext } from "context/UserContext";
 import ROUTES from "routes/routes";
+import { TOTAL_QUESTIONS_NUMBER } from "consts/index";
 import { Flex } from "components/Flex";
 import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Divider } from "components/Divider/style";
 import { Card } from "components/Card";
+import { getFeedback } from "./utils";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { userState } = useUserContext();
-  const { user, score } = userState;
+  const { user, score = 0 } = userState;
+  const feedback = getFeedback(score);
 
-  const handleLeaderboardClick = () => navigate(ROUTES.LEADERBOARD_SCREEN);
-  const handleStartAgainClick = () => navigate(ROUTES.QUIZ_SCREEN);
-
+  // Animate the card
   useEffect(() => {
     if (wrapperRef.current) {
       gsap.fromTo(
@@ -29,6 +30,7 @@ const ResultsPage = () => {
     }
   }, []);
 
+  // Animate the button
   useEffect(() => {
     if (buttonRef.current) {
       gsap.to(buttonRef.current, {
@@ -62,23 +64,39 @@ const ResultsPage = () => {
         </Text>
         <Text fontSize="medium" color="dark" mb="sm">
           You have answered
-          <Text fontWeight="bold" as="span" color="success" mx="xs">
-            {score || "0/10"}
+          <Text fontWeight="bold" as="span" color={feedback.color} mx="xs">
+            {score}/{TOTAL_QUESTIONS_NUMBER}
           </Text>
           questions correctly!
+        </Text>
+        <Text
+          fontWeight="bold"
+          fontSize="medium"
+          color={feedback.color}
+          mb="sm"
+          textAlign="center"
+        >
+          {feedback.message}
         </Text>
       </Flex>
       <Text fontWeight="bold" fontSize="medium" color="dark" mb="sm" mt="md">
         See the Leaderboard scores
       </Text>
-      <Button variant="primary" onClick={handleLeaderboardClick}>
+      <Button
+        variant="primary"
+        onClick={() => navigate(ROUTES.LEADERBOARD_SCREEN)}
+      >
         Leaderboard
       </Button>
       <Divider />
       <Text fontWeight="bold" fontSize="h3" color="dark" mb="md">
         Wanna go for another round? 🧐
       </Text>
-      <Button ref={buttonRef} variant="primary" onClick={handleStartAgainClick}>
+      <Button
+        ref={buttonRef}
+        variant="primary"
+        onClick={() => navigate(ROUTES.QUIZ_SCREEN)}
+      >
         Start 🚀
       </Button>
     </Card>

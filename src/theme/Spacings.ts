@@ -95,3 +95,20 @@ export const applySpacing = (props: SpacingProps, theme: DefaultTheme) => `
       : 0
   };
 `;
+
+export const spacingProps = [
+  "m",
+  "ml",
+  "mr",
+  "mt",
+  "mb",
+  "mx",
+  "my",
+  "p",
+  "pl",
+  "pr",
+  "pt",
+  "pb",
+  "px",
+  "py",
+];

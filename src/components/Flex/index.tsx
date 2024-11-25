@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { applySpacing, SpacingProps } from "theme/Spacings";
 
+const flexPropsToFilter = [
+  "justifyContent",
+  "alignItems",
+  "flexDirection",
+  "flexWrap",
+  "width",
+  "height",
+];
 interface FlexProps extends SpacingProps {
   justifyContent?:
     | "flex-start"
@@ -17,15 +25,7 @@ interface FlexProps extends SpacingProps {
 }
 
 export const Flex = styled.div.withConfig({
-  shouldForwardProp: (prop) =>
-    ![
-      "justifyContent",
-      "alignItems",
-      "flexDirection",
-      "flexWrap",
-      "width",
-      "height",
-    ].includes(prop), // Filter props that shouldn't be forwarded, because otherwise they are passed to the DOM
+  shouldForwardProp: (prop) => !flexPropsToFilter.includes(prop), // Filter props that shouldn't be forwarded, because otherwise they are passed to the DOM
 })<FlexProps>`
   display: flex;
   justify-content: ${({ justifyContent = "flex-start" }) => justifyContent};

@@ -3,20 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_COUNTRIES } from "graphql/queries";
 import ROUTES from "routes/routes";
+import { useKeyboardNavigation } from "hooks/useKeyboardNavigationHook";
+import { SelectedAnswers } from "models/SelectedAnswers";
+import { IQuizQuestion } from "models/QuizQuestion";
 import { generateQuizQuestions } from "helpers/quizHelpers";
 import { useUserContext } from "context/UserContext";
+import { TOTAL_QUESTIONS_NUMBER } from "consts/index";
 import { Flex } from "components/Flex";
 import { Text } from "components/Text";
 import { Loading } from "components/Loading";
 import { Error } from "components/Error";
-import { IQuizQuestion } from "models/QuizQuestion";
 import { Timer } from "components/Timer";
 import { Question } from "components/Question";
 import { AnswerButton } from "components/AnswerButton";
 import { ProgressBar } from "components/ProgressBar";
 import { NavigationButtons } from "components/NavigationButtons";
 import { QuizWrapper, AnswersWrapper } from "./style";
-import { useKeyboardNavigation } from "hooks/useKeyboardNavigationHook";
 
 export const QuizScreen = () => {
   const { data, loading, error } = useQuery(GET_COUNTRIES);
@@ -24,13 +26,11 @@ export const QuizScreen = () => {
   const { userState, setUserState } = useUserContext();
   const [questions, setQuestions] = useState<IQuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<
-    Record<number, { selectedIndex: number; isCorrect: boolean } | null>
-  >({});
+  const [selectedAnswers, setSelectedAnswers] = useState<SelectedAnswers>({});
   const [answeredCorrectly, setAnsweredCorrectly] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
-  // Transform fetched data into quiz questions
   useEffect(() => {
     if (data && data.countries) {
       const quizQuestions = generateQuizQuestions(data.countries);
@@ -46,11 +46,16 @@ export const QuizScreen = () => {
     setProgress(progressValue);
   }, [selectedAnswers, questions]);
 
+  useEffect(() => {
+    const currentAnswer = selectedAnswers[currentQuestionIndex];
+    // Set shouldAnimate to true only if the question isn't already answered
+    setShouldAnimate(!currentAnswer);
+  }, [currentQuestionIndex, selectedAnswers]);
+
   const handleAnswerSelect = (index: number) => {
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = currentQuestion.answers[index]?.isCorrect;
 
-    // Update selected answers
     if (!selectedAnswers[currentQuestionIndex]) {
       setSelectedAnswers((prev) => ({
         ...prev,
@@ -58,55 +63,68 @@ export const QuizScreen = () => {
       }));
     }
 
-    // Update correct answer counter
     if (!selectedAnswers[currentQuestionIndex] && isCorrect) {
       setAnsweredCorrectly((prev) => prev + 1);
     }
   };
 
-  // Go on next question
+  const handleTimeUp = () => {
+    const currentAnswer = selectedAnswers[currentQuestionIndex];
+    if (!currentAnswer) {
+      const correctAnswerIndex = questions[
+        currentQuestionIndex
+      ].answers.findIndex((answer) => answer.isCorrect);
+
+      // Mark the correct answer as selected automatically
+      setSelectedAnswers((prev) => ({
+        ...prev,
+        [currentQuestionIndex]: {
+          selectedIndex: correctAnswerIndex,
+          isCorrect: false,
+        },
+      }));
+
+      // Delay before moving to the next question
+      setTimeout(() => {
+        handleNext(); // Move to the next question after showing the correct answer
+      }, 2000); // 2-second delay
+    }
+  };
+
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     }
   };
 
-  // Go on previous question
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((prev) => prev - 1);
     }
   };
 
-  // Save user score (number of correct answers) when we are done
   const handleDone = () => {
     const newResult = {
       user: userState.user,
       score: answeredCorrectly,
     };
 
-    // Check if "quiz_results" exists in localStorage
     const existingResults = JSON.parse(
       localStorage.getItem("quiz_results") || "[]"
     );
 
-    // Append the new result to the existing list or create a new one
     const updatedResults = [...existingResults, newResult];
 
-    // Save the updated list back to localStorage
     localStorage.setItem("quiz_results", JSON.stringify(updatedResults));
 
-    // Update context with the score
     setUserState((prevState) => ({
       ...prevState,
       score: answeredCorrectly,
     }));
 
-    // Navigate to results screen
     navigate(ROUTES.RESULTS_SCREEN);
   };
 
-  // Use the custom hook for keyboard navigation
   const { focusedIndex, setFocusedIndex } = useKeyboardNavigation(
     questions[currentQuestionIndex]?.answers.length || 0,
     (index) => {
@@ -116,7 +134,6 @@ export const QuizScreen = () => {
     }
   );
 
-  // Focus logic for the buttons
   const handleManualFocus = (index: number) => {
     setFocusedIndex(index); // Update focus index on click or manual focus
   };
@@ -134,18 +151,12 @@ export const QuizScreen = () => {
       alignItems="center"
       p="md"
     >
-      <Flex flexDirection="column" mb="md">
-        <Text fontSize="h3" fontWeight="bold" color="white" mr="xs">
-          Correct Answers:
-        </Text>
-        <Text fontSize="h1" fontWeight="normal" color="white">
-          {answeredCorrectly}/{questions.length}
-        </Text>
-      </Flex>
       <Timer
         key={currentQuestionIndex}
         initialTime={15}
-        onTimeUp={handleNext}
+        onTimeUp={handleTimeUp}
+        shouldRun={!isLocked}
+        shouldAnimate={shouldAnimate} // Pass animation state to Timer
       />
       <Question text={questions[currentQuestionIndex]?.question || ""} />
       <AnswersWrapper>
@@ -163,16 +174,22 @@ export const QuizScreen = () => {
               !answer.isCorrect
             }
             onClick={() => {
-              if (!isLocked) handleAnswerSelect(index); // Prevent re-answering
-              handleManualFocus(index); // Update focus on click
+              if (!isLocked) handleAnswerSelect(index);
+              handleManualFocus(index);
             }}
             isDisabled={!!currentAnswer} // Disable all buttons when locked
             isFocused={focusedIndex === index} // Highlight the focused button
             onFocus={() => handleManualFocus(index)} // Update focus index on manual focus
+            shouldAnimate={shouldAnimate} // Pass animation state to AnswerButton
           />
         ))}
       </AnswersWrapper>
-      <ProgressBar progress={progress} />
+      <Flex flexDirection="column" width="100%" my="sm">
+        <Text fontSize="h2" fontWeight="bold" color="white" mt="xs" mb="md">
+          {currentQuestionIndex}/{TOTAL_QUESTIONS_NUMBER}
+        </Text>
+        <ProgressBar progress={progress} />
+      </Flex>
       <NavigationButtons
         isLastQuestion={currentQuestionIndex === questions.length - 1}
         onPrevious={handlePrevious}

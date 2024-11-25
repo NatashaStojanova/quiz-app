@@ -14,7 +14,8 @@
       "helpers/*": ["helpers/*"],
       "models/*": ["models/*"],
       "routes/*": ["routes/*"],
-      "graphql/*": ["graphql/*"]
+      "graphql/*": ["graphql/*"],
+      "consts/*": ["consts/*"]
     },
     "types": ["styled-components"],
 

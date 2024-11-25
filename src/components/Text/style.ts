@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { applySpacing } from "theme/Spacings";
+import { applySpacing, spacingProps } from "theme/Spacings";
 import { TextProps } from "./utils";
 
-export const StyledText = styled.p<TextProps>`
+export const StyledText = styled.p.withConfig({
+  shouldForwardProp: (prop) => !spacingProps.includes(prop as string), // Filter out spacing props from being forwarded to the DOM
+})<TextProps>`
   font-weight: ${({ theme: { font }, fontWeight }) =>
     fontWeight ? font.weights[fontWeight] : font.weights.default};
   font-size: ${({ theme: { font }, fontSize }) =>

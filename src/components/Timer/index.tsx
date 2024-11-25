@@ -7,32 +7,56 @@ import { TimerWrapper } from "./style";
 interface ITimerProps {
   initialTime: number;
   onTimeUp: () => void;
+  shouldRun?: boolean; // Controls if the timer runs
+  shouldAnimate?: boolean; // Controls if the timer animation should play
 }
 
-export const Timer = ({ initialTime, onTimeUp }: ITimerProps) => {
+export const Timer = ({
+  initialTime,
+  onTimeUp,
+  shouldRun,
+  shouldAnimate,
+}: ITimerProps) => {
   const [time, setTime] = useState(initialTime);
   const timerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (time === 0) {
-      // Animation on time up
-      gsap
-        .timeline()
-        .to(timerRef.current, { scale: 1.5, duration: 0.3, ease: "power3.out" })
-        .to(timerRef.current, {
-          scale: 0.8,
-          duration: 0.2,
-          ease: "power3.inOut",
-        })
-        .to(timerRef.current, { scale: 1, duration: 1, ease: "power3.out" })
-        .then(() => {
-          onTimeUp(); // Proceed to the next question
-        });
+    if (!shouldRun) {
+      setTime(0); // Stop the timer for already answered questions
       return;
     }
 
-    if (time <= 5) {
-      // Animation triggers when there are 5 seconds left to warn the user that it will automatically proceed to the next question
+    setTime(initialTime); // Reset the timer to the initial time
+  }, [shouldRun, initialTime]);
+
+  useEffect(() => {
+    if (time === 0) {
+      if (shouldAnimate) {
+        // Animation when the timer reaches 0
+        gsap
+          .timeline()
+          .to(timerRef.current, {
+            scale: 1.5,
+            duration: 0.3,
+            ease: "power3.out",
+          })
+          .to(timerRef.current, {
+            scale: 0.8,
+            duration: 0.2,
+            ease: "power3.inOut",
+          })
+          .to(timerRef.current, { scale: 1, duration: 1, ease: "power3.out" })
+          .then(() => {
+            onTimeUp(); // Trigger onTimeUp when the timer reaches 0
+          });
+      } else {
+        onTimeUp(); // Trigger onTimeUp without animation
+      }
+      return;
+    }
+
+    if (shouldRun && shouldAnimate && time <= 5) {
+      // Shake animation as a warning for the last 5 seconds
       gsap.to(timerRef.current, {
         x: -5,
         duration: 0.1,
@@ -43,11 +67,13 @@ export const Timer = ({ initialTime, onTimeUp }: ITimerProps) => {
     }
 
     const timer = setInterval(() => {
-      setTime((prev) => prev - 1);
+      if (shouldRun) {
+        setTime((prev) => (prev > 0 ? prev - 1 : 0));
+      }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [time, onTimeUp]);
+  }, [time, shouldRun, shouldAnimate, onTimeUp]);
 
   return (
     <TimerWrapper ref={timerRef} time={time}>

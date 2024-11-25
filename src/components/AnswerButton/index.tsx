@@ -28,7 +28,7 @@ export const AnswerButton = ({
 
   // Animation handling based on shouldAnimate
   useEffect(() => {
-    if (!shouldAnimate) return; // Skip animations if shouldAnimate is false
+    if (!shouldAnimate) return;
 
     if (showCorrect && isCorrect) {
       if (isSelected) {

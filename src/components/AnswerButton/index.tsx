@@ -1,15 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
 import { Text } from "components/Text";
 import { StyledButton } from "./style";
 import { IAnswerButtonProps, indexToAlphabet } from "./utils";
-import gsap from "gsap";
-
-interface AnswerButtonProps extends IAnswerButtonProps {
-  isSelected: boolean;
-  showCorrect?: boolean;
-  isWrong?: boolean;
-  isDisabled?: boolean;
-}
 
 export const AnswerButton = ({
   label,
@@ -20,12 +13,20 @@ export const AnswerButton = ({
   showCorrect,
   isWrong,
   isDisabled,
-}: AnswerButtonProps) => {
+  isFocused,
+  onFocus,
+}: IAnswerButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    if (isFocused && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [isFocused]);
+
+  useEffect(() => {
     if (showCorrect && isCorrect) {
-      // Shake the correct answer when it is revealed
+      // Animation used to shake the correct answer when it is revealed
       gsap.fromTo(
         buttonRef.current,
         { x: -5 },
@@ -33,7 +34,7 @@ export const AnswerButton = ({
           x: 5,
           duration: 0.1,
           yoyo: true,
-          repeat: 15, // 1.5 seconds of shake animation
+          repeat: 15,
           ease: "power1.inOut",
         }
       );
@@ -48,6 +49,7 @@ export const AnswerButton = ({
       showCorrect={showCorrect}
       isWrong={isWrong}
       isDisabled={isDisabled}
+      onFocus={onFocus}
       onClick={isDisabled ? () => {} : onClick}
     >
       <Text color="warning" fontWeight="bold" mr="sm">

@@ -1,69 +1,82 @@
-import { useTable } from "react-table";
-import Paginator from "./Paginator";
-import { Wrapper, StyledTable } from "./style";
+import { useTable, TableOptions } from "react-table";
+import { Flex } from "components/Flex";
+import { Paginator } from "./Paginator";
+import { StyledTable } from "./style";
 
-interface TableProps {
-  data: any[];
-  columns: Array<any>;
+interface TableProps<T extends object> {
+  data: T[];
+  columns: TableOptions<T>["columns"];
   maxRowsPerPage?: number;
   hideHeaders?: boolean;
-  handlePageChange?: any;
-  currentPage: any;
+  handlePageChange?: (page: number, params?: object) => void;
+  currentPage: number;
 }
 
-export const Table = ({
+export const Table = <T extends object>({
   data,
   columns,
-  maxRowsPerPage = 10, // Default to 10 rows per page
-  hideHeaders = false, // Default to false
+  maxRowsPerPage = 10,
+  hideHeaders = false,
   currentPage,
   handlePageChange,
-}: TableProps) => {
-  // Calculate total number of pages
+}: TableProps<T>) => {
   const totalPages = Math.ceil(data.length / maxRowsPerPage);
 
-  // Calculate the paginated data for the current page
   const paginatedData = data.slice(
     (currentPage - 1) * maxRowsPerPage,
     currentPage * maxRowsPerPage
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
-    useTable({
+    useTable<T>({
       columns,
       data: paginatedData,
     });
 
   return (
-    <Wrapper
+    <Flex
+      width="100%"
+      height="100%"
       flexDirection="column"
-      justifyContent="center"
+      justifyContent="space-between"
       alignItems="center"
       p="lg"
     >
       <StyledTable {...getTableProps()}>
-        {/* Only render thead if hideHeaders is false */}
         {!hideHeaders && (
           <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
+            {headerGroups.map((headerGroup) => {
+              const { key, ...rest } = headerGroup.getHeaderGroupProps();
+              return (
+                <tr key={key} {...rest}>
+                  {headerGroup.headers.map((column) => {
+                    const { key: columnKey, ...columnProps } =
+                      column.getHeaderProps();
+                    return (
+                      <th key={columnKey} {...columnProps}>
+                        {column.render("Header")}
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </thead>
         )}
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
+            const { key, ...rest } = row.getRowProps();
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                ))}
+              <tr key={key} {...rest}>
+                {row.cells.map((cell) => {
+                  const { key: cellKey, ...cellProps } = cell.getCellProps();
+                  return (
+                    <td key={cellKey} {...cellProps}>
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
               </tr>
             );
           })}
@@ -73,9 +86,9 @@ export const Table = ({
       <Paginator
         currentPage={currentPage}
         lastPage={totalPages}
-        handlePageChange={handlePageChange}
-        params={{ key: "value" }} // Optional parameters to pass
+        handlePageChange={(page, params) => handlePageChange?.(page, params)}
+        params={{ key: "value" }}
       />
-    </Wrapper>
+    </Flex>
   );
 };

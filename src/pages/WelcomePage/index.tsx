@@ -6,7 +6,7 @@ import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Input } from "components/Input";
 import { Card } from "components/Card";
-import { Logo } from "./styles";
+import { Logo } from "./style";
 
 const WelcomePage = () => {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const WelcomePage = () => {
       justifyContent="center"
       alignItems="center"
       p="lg"
+      width="400px"
       height="450px"
     >
       <Logo src="/assets/quiz-time-logo.svg" alt="Quiz Logo" />

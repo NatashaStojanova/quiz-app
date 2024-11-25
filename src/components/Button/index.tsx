@@ -20,11 +20,11 @@ export const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
     ref
   ) => (
     <StyledButton
-      ref={ref} // Attach the ref here
+      ref={ref}
       variant={variant}
       disabled={disabled}
       onClick={onClick}
-      {...props} // Spread remaining props
+      {...props}
     >
       {/* Render left arrow if hasLeftArrow is true */}
       {hasLeftArrow && <LeftIcon icon={faChevronLeft} />}

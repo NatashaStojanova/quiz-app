@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUserScore } from "models/UserScore";
+import ROUTES from "routes/routes";
 import { Flex } from "components/Flex";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
@@ -35,15 +36,20 @@ const Leaderboard = () => {
       justifyContent="space-between"
       alignItems="center"
       width="400px"
-      height="550px"
-      p="lg"
+      height="600px"
+      pb="md"
     >
-      <Flex flexDirection="column" alignItems="center" width="100%">
-        <Text fontWeight="bold" fontSize="h2" mt="lg" mb="md">
+      <Flex
+        flexDirection="column"
+        alignItems="center"
+        width="100%"
+        height="100%"
+      >
+        <Text fontWeight="bold" fontSize="h2" mt="lg">
           Leaderboard
         </Text>
-        {leaderboardData.length === 0 ? (
-          <Text fontSize="h3" color="muted" textAlign="center" mb="lg">
+        {!leaderboardData.length ? (
+          <Text fontSize="h3" color="muted" my="lg">
             No one has taken the quiz yet. Be the first to set a high score! 🚀
           </Text>
         ) : (
@@ -58,7 +64,7 @@ const Leaderboard = () => {
         )}
       </Flex>
       <Button
-        onClick={() => navigate("/")}
+        onClick={() => navigate(ROUTES.WELCOME_SCREEN)}
         variant="secondary"
         hasLeftArrow
         width="80%"

@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from "react";
 import { SomethingWentWrongPage } from "pages/SomethingWentWrongPage";
 
 interface ErrorBoundaryProps {
-  children: ReactNode; // Children components that the ErrorBoundary wraps
+  children: ReactNode;
 }
 
 interface ErrorBoundaryState {
@@ -27,14 +27,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     const { errorInfo } = this.state;
     const { children } = this.props;
-    console.log("error bound", errorInfo);
 
     if (errorInfo) {
       // Render fallback UI when an error is caught
       return <SomethingWentWrongPage />;
     }
 
-    // Normally render children
     return children;
   }
 }

@@ -7,11 +7,10 @@ export const Loading = () => {
   const loadingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ repeat: -1 });
-    tl.to(loadingRef.current, { opacity: 0.5, duration: 0.5 }).to(
-      loadingRef.current,
-      { opacity: 1, duration: 0.5 }
-    );
+    const loadingAnimation = gsap.timeline({ repeat: -1 });
+    loadingAnimation
+      .to(loadingRef.current, { opacity: 0.5, duration: 0.5 })
+      .to(loadingRef.current, { opacity: 1, duration: 0.5 });
   }, []);
 
   return (

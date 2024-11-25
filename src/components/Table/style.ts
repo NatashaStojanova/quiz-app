@@ -1,9 +1,4 @@
-import { Flex } from "../Flex";
 import styled from "styled-components";
-
-export const Wrapper = styled(Flex)`
-  width: 100%;
-`;
 
 export const StyledTable = styled.table`
   width: 100%;

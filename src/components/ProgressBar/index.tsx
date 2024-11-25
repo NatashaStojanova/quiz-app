@@ -1,31 +1,36 @@
 import { useEffect, useRef } from "react";
-import { ProgressBarWrapper, Progress } from "./style";
 import gsap from "gsap";
+import { useTheme } from "styled-components";
+import { ProgressBarWrapper, Progress } from "./style";
 
 interface IProgressBarProps {
-  progress: number; // Value between 0 and 100
+  progress: number;
 }
 
 export const ProgressBar = ({ progress }: IProgressBarProps) => {
   const progressRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (progressRef.current) {
-      // Animate the progress bar width
+      // Animation for progress bar width
       gsap.to(progressRef.current, {
         width: `${progress}%`,
         duration: 0.5,
         ease: "power1.out",
       });
 
-      // Update gradient dynamically based on progress
+      // Animation for updating gradient dynamically based on theme
+      const startColor = `rgba(${theme.palette.warning_rgb}, 1)`;
+      const endColor = `rgba(${theme.palette.success_rgb}, 1)`;
+
       gsap.to(progressRef.current, {
-        background: `linear-gradient(90deg, rgba(253, 195, 0, 1) 0%, rgba(76, 175, 80, 1) ${progress}%)`,
+        background: `linear-gradient(90deg, ${startColor} 0%, ${endColor} ${progress}%)`,
         duration: 0.5,
         ease: "power1.out",
       });
     }
-  }, [progress]);
+  }, [progress, theme]);
 
   return (
     <ProgressBarWrapper>

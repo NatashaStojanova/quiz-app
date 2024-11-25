@@ -1,12 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { GatewayWrapper } from "./style";
+import { Flex } from "components/Flex";
 
-export const Gateway = (props: any) => {
-  const { children } = props;
+interface IGatewayProps {
+  children: React.ReactNode;
+}
 
+export const Gateway = ({ children }: IGatewayProps) => {
   return (
-    <GatewayWrapper justifyContent="center" alignItems="center">
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+      width="100vw"
+    >
       {children}
-    </GatewayWrapper>
+    </Flex>
   );
 };

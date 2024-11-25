@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Flex } from "components/Flex";
 import { SpacingProps, applySpacing } from "theme/Spacings";
 
-interface CardProps extends SpacingProps {
+interface ICardProps extends SpacingProps {
   width?: string | number;
   height?: string | number;
   borderRadius?: string;
@@ -11,7 +11,7 @@ interface CardProps extends SpacingProps {
   maxWidth?: string | number;
 }
 
-export const Card = styled(Flex)<CardProps>`
+export const Card = styled(Flex)<ICardProps>`
   width: ${({ width }) =>
     typeof width === "number" ? `${width}px` : width || "100%"};
   height: ${({ height }) =>

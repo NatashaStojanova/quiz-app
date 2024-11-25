@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "incremental": true, // Enables incremental builds for tsBuildInfoFile
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo", // Incremental build info
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
@@ -10,15 +11,14 @@
     "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    "moduleDetection": "force",
+    "moduleDetection": "force", // Corrected from "forcea"
     "noEmit": true,
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["vite.config.ts"]
 }

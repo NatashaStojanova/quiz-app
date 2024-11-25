@@ -47,6 +47,7 @@ const ResultsPage = () => {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      width="400px"
       height="500px"
     >
       <Text fontWeight="bold" fontSize="h1" color="dark" mb="sm">

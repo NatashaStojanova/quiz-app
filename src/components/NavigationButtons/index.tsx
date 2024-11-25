@@ -1,13 +1,13 @@
 import { Button } from "components/Button";
-import { NavigationWrapper } from "./style";
+import { Flex } from "components/Flex";
 
 interface INavigationButtonsProps {
   onNext: () => void;
   onPrevious: () => void;
   onDone: () => void;
   isLastQuestion: boolean; // Determine if the current question is the last one
-  disablePrevious?: boolean; // Optional: disable the Previous button
-  disableNext?: boolean; // Optional: disable the Next button
+  disablePrevious?: boolean; // Disable the Previous button
+  disableNext?: boolean; // Disable the Next button
 }
 
 export const NavigationButtons = ({
@@ -18,7 +18,7 @@ export const NavigationButtons = ({
   disablePrevious = false,
   disableNext = false,
 }: INavigationButtonsProps) => (
-  <NavigationWrapper mt="md" justifyContent="space-between">
+  <Flex mt="md" justifyContent="space-between" width="100%">
     <Button
       variant="secondary"
       disabled={disablePrevious}
@@ -34,5 +34,5 @@ export const NavigationButtons = ({
         Next
       </Button>
     )}
-  </NavigationWrapper>
+  </Flex>
 );

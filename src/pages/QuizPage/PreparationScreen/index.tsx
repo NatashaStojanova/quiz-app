@@ -19,7 +19,7 @@ export const PreparationScreen = ({ onComplete }: IPreparationScreenProps) => {
     if (count === 0) {
       clearInterval(timer);
 
-      // Add dramatic animation before completing
+      // Add animation before completing
       gsap.to(countdownRef.current, {
         scale: 1.5,
         opacity: 0,
@@ -34,7 +34,7 @@ export const PreparationScreen = ({ onComplete }: IPreparationScreenProps) => {
 
   useEffect(() => {
     if (count > 0) {
-      // Animate each number dramatically
+      // Animate each number when counting
       gsap.fromTo(
         countdownRef.current,
         { scale: 0, opacity: 0 },

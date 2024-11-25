@@ -1,9 +1,9 @@
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary"; // Variant styles
-  disabled?: boolean; // Disable button
+  children: React.ReactNode;
+  width?: string;
+  isabled?: boolean;
+  variant?: "primary" | "secondary"; // Variant styles; primary is with background color, secondary is outlined
   hasLeftArrow?: boolean; // Adds left arrow icon
   hasRightArrow?: boolean; // Adds right arrow icon
-  children: React.ReactNode; // Button content
-  width?: string;
 }

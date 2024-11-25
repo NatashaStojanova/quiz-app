@@ -9,16 +9,16 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
       fontWeight = "normal",
       fontSize = "md",
       color = "dark",
-      as = "p", // Default to <p>
+      as = "p",
       className,
       textAlign,
       ...props
     },
-    ref // Receive the forwarded ref
+    ref // We need a ref prop to pass animations
   ) => {
     return (
       <StyledText
-        ref={ref} // Forward the ref to the StyledText component
+        ref={ref}
         as={as}
         fontWeight={fontWeight}
         fontSize={fontSize}
@@ -32,5 +32,3 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
     );
   }
 );
-
-Text.displayName = "Text"; // Optional: set a display name for the component

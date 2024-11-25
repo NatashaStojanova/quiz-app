@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "components/Text";
 import { StyledInput, InputWrapper } from "./style";
 
-interface InputProps {
+interface IInputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -16,7 +16,7 @@ export const Input = ({
   placeholder = "",
   required = false,
   validationMessage,
-}: InputProps) => {
+}: IInputProps) => {
   const [isTouched, setIsTouched] = React.useState(false);
 
   const handleBlur = () => {

@@ -1,7 +1,16 @@
 import styled from "styled-components";
 import { IAnswerButtonProps } from "./utils";
 
-export const StyledButton = styled.button<
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "showCorrect",
+      "isWrong",
+      "isDisabled",
+      "isSelected",
+      "isCorrect",
+    ].includes(prop),
+})<
   IAnswerButtonProps & {
     showCorrect?: boolean;
     isWrong?: boolean;
@@ -39,6 +48,12 @@ export const StyledButton = styled.button<
 
   &:hover {
     background-color: ${({ theme: { palette }, isDisabled }) =>
-      isDisabled ? palette.disabled : palette.warning}; // Hover disabled color
+      isDisabled ? palette.disabled : palette.warning};
+  }
+
+  &:focus {
+    background-color: ${({ theme: { palette }, isDisabled }) =>
+      isDisabled ? palette.disabled : palette.warning};
+    outline: none;
   }
 `;

@@ -12,14 +12,14 @@ import {
 } from "./style";
 
 type ContentProps = {
-  handlePageChange: (pageNumber: number, params: object) => void; // Renamed from `page`
+  handlePageChange: (pageNumber: number, params: object) => void;
   currentPage: number;
   lastPage: number;
   params: object;
 };
 
 const Content = ({
-  handlePageChange, // Updated name
+  handlePageChange,
   lastPage,
   currentPage,
   params,
@@ -101,11 +101,11 @@ const Content = ({
 type PaginatorProps = {
   lastPage: number;
   currentPage: number;
-  handlePageChange: (pageNumber: number, params: object) => void; // Updated type
-  params?: object; // Optional params
+  handlePageChange: (pageNumber: number, params: object) => void;
+  params?: object;
 };
 
-const Paginator = ({
+export const Paginator = ({
   lastPage,
   currentPage,
   handlePageChange,
@@ -122,5 +122,3 @@ const Paginator = ({
     </PaginatorWrapper>
   ) : null;
 };
-
-export default Paginator;

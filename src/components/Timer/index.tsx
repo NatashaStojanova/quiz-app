@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { Text } from "components/Text";
 import { formatTime } from "./utils";
 import { TimerWrapper } from "./style";
 
@@ -14,7 +15,7 @@ export const Timer = ({ initialTime, onTimeUp }: ITimerProps) => {
 
   useEffect(() => {
     if (time === 0) {
-      // Play dramatic animation on time-up
+      // Animation on time up
       gsap
         .timeline()
         .to(timerRef.current, { scale: 1.5, duration: 0.3, ease: "power3.out" })
@@ -31,7 +32,7 @@ export const Timer = ({ initialTime, onTimeUp }: ITimerProps) => {
     }
 
     if (time <= 5) {
-      // Shake animation for the last 5 seconds
+      // Animation triggers when there are 5 seconds left to warn the user that it will automatically proceed to the next question
       gsap.to(timerRef.current, {
         x: -5,
         duration: 0.1,
@@ -50,7 +51,9 @@ export const Timer = ({ initialTime, onTimeUp }: ITimerProps) => {
 
   return (
     <TimerWrapper ref={timerRef} time={time}>
-      {formatTime(time)}
+      <Text fontWeight="bold" color={time > 10 ? "dark" : "white"}>
+        {formatTime(time)}
+      </Text>
     </TimerWrapper>
   );
 };

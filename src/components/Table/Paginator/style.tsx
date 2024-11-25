@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Flex } from "components/Flex";
 
-const PaginatorWrapper = styled(Flex)`
+export const PaginatorWrapper = styled(Flex)`
   background-color: transparent;
   width: 100%;
 `;
 
-const PaginatorContent = styled(Flex)`
+export const PaginatorContent = styled(Flex)`
   & > button:first-child {
     margin-right: ${({ theme: { mp } }) => mp.xs};
   }
@@ -16,64 +16,62 @@ const PaginatorContent = styled(Flex)`
   width: 100%;
 `;
 
-const PaginatorCellElement = styled.button`
+export const PaginatorCellElement = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: 0;
+  border: none;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin: 0px 2px;
+  width: ${({ theme: { mp } }) => mp.lg};
+  height: ${({ theme: { mp } }) => mp.lg};
+  margin: ${({ theme: { mp } }) => `0 ${mp.xs}`};
   cursor: pointer;
-  outline: 0;
-  font-size: ${({
-    theme: {
-      font: { sizes },
-    },
-  }) => sizes.small};
-  font-weight: ${({
-    theme: {
-      font: { weights },
-    },
-  }) => weights.light};
+  outline: none;
+  font-size: ${({ theme: { font } }) => font.sizes.small};
+  font-weight: ${({ theme: { font } }) => font.weights.light};
+  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
-const PaginatorArrow = styled(({ theme, disabled, ...rest }: any) => (
-  <PaginatorCellElement {...rest} disabled={disabled} />
-))`
+export const PaginatorArrow = styled(PaginatorCellElement).withConfig({
+  shouldForwardProp: (prop) => prop !== "disabled",
+})<{
+  disabled?: boolean;
+}>`
   color: ${({ disabled, theme: { palette } }) =>
     disabled ? palette.gray : palette.primary};
   background-color: ${({ theme: { palette } }) => palette.white};
-  width: 30px;
-  height: 30px;
-  margin: 0;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 
   &:hover {
-    cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+    background-color: ${({ theme: { palette }, disabled }) =>
+      disabled ? palette.white : palette.secondary};
+    color: ${({ theme: { palette }, disabled }) =>
+      disabled ? palette.gray : palette.white};
   }
 `;
 
-const PaginatorCell = styled(({ current, ...rest }: any) => (
-  <PaginatorCellElement {...rest} />
-))`
+export const PaginatorCell = styled(PaginatorCellElement).withConfig({
+  shouldForwardProp: (prop) => prop !== "current",
+})<{
+  current?: boolean;
+}>`
   color: ${({ current, theme: { palette } }) =>
     current ? palette.white : palette.dark};
   background-color: ${({ current, theme: { palette } }) =>
     current ? palette.primary : palette.white};
+
+  &:hover {
+    background-color: ${({ current, theme: { palette } }) =>
+      current ? palette.primary : palette.secondary};
+    color: ${({ current, theme: { palette } }) =>
+      current ? palette.white : palette.light};
+  }
 `;
 
-const PaginatorCellDots = styled.span`
-  padding: 2px 4px;
-  border: 0;
+export const PaginatorCellDots = styled.span`
+  padding: ${({ theme: { mp } }) => `${mp.xxs} ${mp.xs}`};
+  border: none;
   color: ${({ theme: { palette } }) => palette.dark};
-  margin: ${({ theme: { mp } }) => `0px ${mp.xs}`};
+  margin: ${({ theme: { mp } }) => `0 ${mp.xs}`};
+  font-size: ${({ theme: { font } }) => font.sizes.small};
 `;
-
-export {
-  PaginatorWrapper,
-  PaginatorArrow,
-  PaginatorCell,
-  PaginatorCellDots,
-  PaginatorContent,
-};

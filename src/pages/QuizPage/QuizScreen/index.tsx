@@ -16,11 +16,12 @@ import { AnswerButton } from "components/AnswerButton";
 import { ProgressBar } from "components/ProgressBar";
 import { NavigationButtons } from "components/NavigationButtons";
 import { QuizWrapper, AnswersWrapper } from "./style";
+import { useKeyboardNavigation } from "hooks/useKeyboardNavigationHook";
 
 export const QuizScreen = () => {
   const { data, loading, error } = useQuery(GET_COUNTRIES);
   const navigate = useNavigate();
-  const { userState, setUserState } = useUserContext(); // Access userState and setUserState from context
+  const { userState, setUserState } = useUserContext();
   const [questions, setQuestions] = useState<IQuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<
@@ -63,18 +64,21 @@ export const QuizScreen = () => {
     }
   };
 
+  // Go on next question
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     }
   };
 
+  // Go on previous question
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((prev) => prev - 1);
     }
   };
 
+  // Save user score (number of correct answers) when we are done
   const handleDone = () => {
     const newResult = {
       user: userState.user,
@@ -102,6 +106,21 @@ export const QuizScreen = () => {
     navigate(ROUTES.RESULTS_SCREEN);
   };
 
+  // Use the custom hook for keyboard navigation
+  const { focusedIndex, setFocusedIndex } = useKeyboardNavigation(
+    questions[currentQuestionIndex]?.answers.length || 0,
+    (index) => {
+      if (!selectedAnswers[currentQuestionIndex]) {
+        handleAnswerSelect(index); // Select answer when Enter is pressed
+      }
+    }
+  );
+
+  // Focus logic for the buttons
+  const handleManualFocus = (index: number) => {
+    setFocusedIndex(index); // Update focus index on click or manual focus
+  };
+
   if (loading) return <Loading />;
   if (error) return <Error errorMessage={error.message} />;
 
@@ -115,7 +134,6 @@ export const QuizScreen = () => {
       alignItems="center"
       p="md"
     >
-      {/* Timer */}
       <Flex flexDirection="column" mb="md">
         <Text fontSize="h3" fontWeight="bold" color="white" mr="xs">
           Correct Answers:
@@ -144,8 +162,13 @@ export const QuizScreen = () => {
               currentAnswer.selectedIndex === index &&
               !answer.isCorrect
             }
-            onClick={() => !isLocked && handleAnswerSelect(index)} // Prevent re-answering
+            onClick={() => {
+              if (!isLocked) handleAnswerSelect(index); // Prevent re-answering
+              handleManualFocus(index); // Update focus on click
+            }}
             isDisabled={!!currentAnswer} // Disable all buttons when locked
+            isFocused={focusedIndex === index} // Highlight the focused button
+            onFocus={() => handleManualFocus(index)} // Update focus index on manual focus
           />
         ))}
       </AnswersWrapper>
@@ -156,7 +179,7 @@ export const QuizScreen = () => {
         onNext={handleNext}
         onDone={handleDone}
         disablePrevious={currentQuestionIndex === 0}
-        disableNext={!selectedAnswers[currentQuestionIndex]} // Enable Next if the question is answered
+        disableNext={!selectedAnswers[currentQuestionIndex]} // Enable Next only if the question is answered
       />
     </QuizWrapper>
   );

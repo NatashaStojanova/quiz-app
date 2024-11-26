@@ -186,7 +186,7 @@ export const QuizScreen = () => {
       </AnswersWrapper>
       <Flex flexDirection="column" width="100%" my="sm">
         <Text fontSize="h2" fontWeight="bold" color="white" mt="xs" mb="md">
-          {currentQuestionIndex}/{TOTAL_QUESTIONS_NUMBER}
+          {currentQuestionIndex + 1}/{TOTAL_QUESTIONS_NUMBER}
         </Text>
         <ProgressBar progress={progress} />
       </Flex>
@@ -195,7 +195,9 @@ export const QuizScreen = () => {
         onPrevious={handlePrevious}
         onNext={handleNext}
         onDone={handleDone}
-        disablePrevious={currentQuestionIndex === 0}
+        disablePrevious={
+          currentQuestionIndex === 0 || !selectedAnswers[currentQuestionIndex]
+        } // We should not be able to go back if our current question is not answered, because the timer will be resetted
         disableNext={!selectedAnswers[currentQuestionIndex]} // Enable Next only if the question is answered
       />
     </QuizWrapper>

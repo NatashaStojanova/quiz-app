@@ -3,6 +3,7 @@ import { TOTAL_QUESTIONS_NUMBER } from "consts/index";
 import { IUserScore } from "models/UserScore";
 
 export const columns: Column<IUserScore>[] = [
+  { Header: "Ranked", accessor: "id" },
   { Header: "Name", accessor: "user" },
   {
     Header: "Score",

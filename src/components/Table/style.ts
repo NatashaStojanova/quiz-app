@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledTable = styled.table`
-  width: 100%;
+  width: 80%;
   margin-bottom: ${({ theme: { mp } }) => mp.md};
   border-collapse: collapse;
 
@@ -9,7 +9,7 @@ export const StyledTable = styled.table`
   th,
   td {
     padding: ${({ theme: { mp } }) => mp.sm};
-    text-align: center;
+    text-align: left;
     font-size: ${({ theme: { font } }) => font.sizes.small};
     color: ${({ theme: { palette } }) => palette.muted};
   }

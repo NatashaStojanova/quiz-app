@@ -21,7 +21,12 @@ const Leaderboard = () => {
     );
 
     // Sort data by score in descending order
-    const sortedResults = quizResults.sort((a, b) => b.score - a.score);
+    const sortedResults = quizResults
+      .sort((a, b) => b.score - a.score)
+      .map((result, index) => ({
+        ...result,
+        id: index + 1, // Add "id" property starting from 1
+      }));
 
     setLeaderboardData(sortedResults);
   }, []);

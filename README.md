@@ -121,7 +121,7 @@ This structure keeps all route definitions in one place, making it easier to upd
 
   
 
-### Reusable Components
+### Reusable components
 
 - The application uses modular and reusable components, such as `Button`, `Input`, and `Table`. These are located in the `/components` folder.
 
@@ -215,7 +215,7 @@ This structure keeps all route definitions in one place, making it easier to upd
 ## Pages
 
 
-### Welcome Page
+### Welcome page
 
 - Allows the user to enter their name and start the quiz.
 
@@ -229,7 +229,7 @@ This structure keeps all route definitions in one place, making it easier to upd
 
   
 
-### Results Page
+### Results page
 
 - Displays the user’s quiz score and results.
 
@@ -239,7 +239,7 @@ This structure keeps all route definitions in one place, making it easier to upd
 
   
 
-### Leaderboard Page
+### Leaderboard page
 
 - Displays a list of high scores stored in `localStorage`.
 

@@ -133,19 +133,16 @@ This structure keeps all route definitions in one place, making it easier to upd
 
 ### Centralized theme
 
+- I used a theme to provide consistency throughout the application.
+
+- It makes adding or changing design elements scalable and easy.
+
 - The `/theme` folder contains a centralized design system with:
 
 - ****Predefined spacing:**** (`sm`, `md`, `lg`) for uniform padding and margins.
 
 - ****Colors:**** Standardized palette for consistent UI elements.
 
-- ****Why use a theme?****
-
-- Ensures consistency throughout the application.
-
-- Makes adding or changing design elements scalable and easy.
-
-  
 
 ### State management
 

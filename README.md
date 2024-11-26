@@ -62,16 +62,16 @@ This project uses two branches to organize development and ensure stability:
 
 # Quiz Logic
 
-- **User Name Input**:
+- **User name input**:
   - User enters their name.
   - Empty or whitespace only names are not allowed.
   - If a user tries to access `/quiz` without entering a name, they will be redirected to the welcome screen.
 
-- **Preparation Screen**:
+- **Preparation screen**:
   - A preparation screen with a countdown is displayed before the quiz starts.
   - After the countdown, the quiz begins.
 
-- **Quiz Questions**:
+- **Quiz questions**:
   - The quiz consists of 10 randomly generated questions about languages, countries, and continents.
   - Questions are structured to avoid consecutive questions of the same type (handled by a GraphQL transformation function).
 
@@ -83,16 +83,16 @@ This project uses two branches to organize development and ensure stability:
   - If the user answers within the time limit:
     - They can navigate back to view previous results or forward to the next question.
 
-- **Progress Tracking**:
+- **Progress tracking**:
   - A progress bar is updated after each question (whether correct or not).
   - Displays the current question number out of the total (Example: 3/10).
 
-- **End of Quiz**:
+- **End of quiz**:
   - Redirects to a results screen.
     - Total score.
     - Option to retake the quiz or view the leaderboard.
 
-- **Navigation Rules**:
+- **Navigation rules**:
   - Users cannot navigate back or forward until they answer the current question.
   - After answering navigation is allowed.
 

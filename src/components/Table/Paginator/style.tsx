@@ -32,9 +32,7 @@ export const PaginatorCellElement = styled.button`
   transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
-export const PaginatorArrow = styled(PaginatorCellElement).withConfig({
-  shouldForwardProp: (prop) => prop !== "disabled",
-})<{
+export const PaginatorArrow = styled(PaginatorCellElement)<{
   disabled?: boolean;
 }>`
   color: ${({ disabled, theme: { palette } }) =>

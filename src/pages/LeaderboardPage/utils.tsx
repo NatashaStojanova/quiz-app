@@ -8,13 +8,9 @@ export const columns: Column<IUserScore>[] = [
   {
     Header: "Score",
     accessor: "score",
-    Cell: ({
-      row: { index, original },
-    }: {
-      row: { index: number; original: IUserScore };
-    }) => {
-      const { score } = original;
-      const isTopThree = index < 3;
+    Cell: ({ row: { original } }: { row: { original: IUserScore } }) => {
+      const { id, score } = original;
+      const isTopThree = Number(id) <= 3;
       return (
         <>
           {score}/{TOTAL_QUESTIONS_NUMBER} {isTopThree && "🔥"}

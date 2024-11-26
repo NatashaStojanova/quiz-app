@@ -1,5 +1,5 @@
 export interface IUserScore {
-  id: number;
+  id?: number;
   user: string;
   score: number;
 }

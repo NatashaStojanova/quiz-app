@@ -11,19 +11,21 @@ import { Logo } from "./style";
 const WelcomePage = () => {
   const navigate = useNavigate();
   const { setUserState } = useUserContext();
-  const [inputValue, setInputValue] = useState("");
+  const [name, setName] = useState("");
 
   const handleStartClick = () => {
-    if (!inputValue) return;
+    const trimmedValue = name.trim();
+    if (!trimmedValue) return; // Avoid entering a name that is empty or contains only whitespace
+
     setUserState((prevState) => ({
       ...prevState,
-      user: inputValue,
+      user: trimmedValue,
     }));
     navigate(ROUTES.QUIZ_SCREEN);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && inputValue) {
+    if (event.key === "Enter" && name.trim()) {
       handleStartClick();
     }
   };
@@ -39,8 +41,8 @@ const WelcomePage = () => {
     >
       <Logo src="/assets/quiz-time-logo.svg" alt="Quiz Logo" />
       <Input
-        value={inputValue}
-        onChange={setInputValue}
+        value={name}
+        onChange={setName}
         onKeyDown={handleKeyPress}
         placeholder="Enter your name"
         required
@@ -49,7 +51,7 @@ const WelcomePage = () => {
       <Text mb="md" color="muted">
         Click the Start button and try your luck with us! 🎉
       </Text>
-      <Button onClick={handleStartClick} disabled={!inputValue}>
+      <Button onClick={handleStartClick} disabled={!name.trim()}>
         Start
       </Button>
     </Card>

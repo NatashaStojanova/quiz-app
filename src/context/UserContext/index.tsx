@@ -19,6 +19,7 @@ const UserContext = createContext<IUserContextProps>(defaultState);
 
 export const UserProvider = ({ children }: IUserProvider) => {
   const [userState, setUserState] = useState<IUserScore>({
+    id: undefined,
     user: "",
     score: 0,
   });

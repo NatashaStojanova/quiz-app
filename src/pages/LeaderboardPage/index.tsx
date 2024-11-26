@@ -74,7 +74,7 @@ const Leaderboard = () => {
         hasLeftArrow
         width="80%"
       >
-        Back
+        Return to Quiz start
       </Button>
     </Card>
   );

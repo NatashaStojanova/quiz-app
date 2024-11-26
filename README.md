@@ -76,7 +76,7 @@ This project uses two branches to organize development and ensure stability:
   - Questions are structured to avoid consecutive questions of the same type (handled via a GraphQL transformation function).
 
 - **Quiz Timer**:
-  - Each question has a 15-second timer.
+  - Each question has a 15 second timer.
   - If time runs out:
     - A warning displays, and the correct answer is revealed.
     - Automatically proceeds to the next question.
@@ -84,17 +84,17 @@ This project uses two branches to organize development and ensure stability:
     - They can navigate back to view previous results or forward to the next question.
 
 - **Progress Tracking**:
-  - A progress bar updates after each question, regardless of correctness.
-  - Displays the current question number out of the total (Example: "3/10").
+  - A progress bar updates after each question (whether correct or not).
+  - Displays the current question number out of the total (Example: 3/10).
 
 - **End of Quiz**:
-  - Redirects to a results screen showing:
+  - Redirects to a results screen.
     - Total score.
     - Option to retake the quiz or view the leaderboard.
 
 - **Navigation Rules**:
   - Users cannot navigate back or forward until they answer the current question.
-  - After answering, navigation is allowed.
+  - After answering navigation is allowed.
 
 
 ---
@@ -207,12 +207,6 @@ This structure keeps all route definitions in one place, making it easier to upd
 
   
 
-### Additional Notes
-
-- Hard to understand or complex areas in the codebase include short comments explaining the logic.
-
-  
-
 ### Functional Components
 
 - The app uses only functional components for consistency, except for the `ErrorBoundary` component (React currently does not have a clean way to implement an error boundary using functional components and class component was used for this specific case.)
@@ -250,10 +244,14 @@ This structure keeps all route definitions in one place, making it easier to upd
 
 ### Leaderboard Page
 
-- Displays a list of high scores saved in `LocalStorage`.
+- Displays a list of high scores saved in `localStorage`.
 
 - Supports features like sorting and pagination using React TanStack Table.
 
   
 
 ---
+
+### Additional Notes
+
+- Hard to understand or complex areas in the codebase include short comments explaining the logic.

@@ -5,9 +5,9 @@ interface INavigationButtonsProps {
   onNext: () => void;
   onPrevious: () => void;
   onDone: () => void;
-  isLastQuestion: boolean; // Determine if the current question is the last one
-  disablePrevious?: boolean; // Disable the Previous button
-  disableNext?: boolean; // Disable the Next button
+  isLastQuestion: boolean; // Determine if the current question is the last one (we need this to conditionally render and call Done button)
+  disablePrevious?: boolean; // Disable the Previous button (we need this if we are on the first quiz question)
+  disableNext?: boolean; // Disable the Next button (we need this if the current question is not answered yet)
 }
 
 export const NavigationButtons = ({

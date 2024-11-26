@@ -76,8 +76,11 @@ const selectQuestionsWithoutRepeatingTypes = (
 };
 
 // Helper function to generate answers with the required format
-const generateUniqueAnswers = (correctAnswer: string, pool: string[]) => {
-  const incorrectAnswers = pool
+const generateUniqueAnswers = (
+  correctAnswer: string,
+  answerOptions: string[]
+) => {
+  const incorrectAnswers = answerOptions
     .filter((answer) => answer !== correctAnswer) // Exclude correct answer
     .sort(() => 0.5 - Math.random()) // Randomize answers
     .slice(0, 3); // Take 3 incorrect answers

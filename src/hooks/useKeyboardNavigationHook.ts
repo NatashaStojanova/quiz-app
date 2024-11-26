@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Custom hook for keyboard navigation
+ *
+ * @param {number} totalItems - The total number of items in the list.
+ * @param {function} onSelect - Callback function to handle item selection by index.
+ * @returns {{ focusedIndex: number | null, setFocusedIndex: React.Dispatch<React.SetStateAction<number | null>> }}
+ * An object containing the focused index and a function to manually update it.
+ */
 export const useKeyboardNavigation = (
   totalItems: number,
   onSelect: (index: number) => void

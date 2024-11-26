@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { Text } from "components/Text";
-import { StyledButton } from "./style";
 import { IAnswerButtonProps, indexToAlphabet } from "./utils";
+import { StyledButton } from "./style";
 
 export const AnswerButton = ({
   label,
@@ -45,7 +45,7 @@ export const AnswerButton = ({
           }
         );
       } else {
-        // Animation for shaking the correct answer when revealed
+        // Animation for shaking the correct answer when revealed, in case we selected a wrong one
         gsap.fromTo(
           buttonRef.current,
           { x: -5 },

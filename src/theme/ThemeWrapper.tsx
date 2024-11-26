@@ -2,9 +2,12 @@ import { Fragment, ReactNode } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { GlobalStyles } from "globalStyles";
 
-type Props = { children: ReactNode; theme: DefaultTheme };
+interface IThemeWrapperProps {
+  children: ReactNode;
+  theme: DefaultTheme;
+}
 
-const ThemeWrapper = ({ children, theme }: Props) => {
+export const ThemeWrapper = ({ children, theme }: IThemeWrapperProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Fragment>
@@ -14,5 +17,3 @@ const ThemeWrapper = ({ children, theme }: Props) => {
     </ThemeProvider>
   );
 };
-
-export default ThemeWrapper;

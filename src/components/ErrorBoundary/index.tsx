@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from "react";
 import { SomethingWentWrongPage } from "pages/SomethingWentWrongPage";
 
-interface ErrorBoundaryProps {
+interface IErrorBoundaryProps {
   children: ReactNode;
 }
 
@@ -10,8 +10,11 @@ interface ErrorBoundaryState {
   errorInfo: React.ErrorInfo | null; // To store the error details
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
+export class ErrorBoundary extends Component<
+  IErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: IErrorBoundaryProps) {
     super(props);
     this.state = { error: null, errorInfo: null };
   }
@@ -36,5 +39,3 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return children;
   }
 }
-
-export default ErrorBoundary;

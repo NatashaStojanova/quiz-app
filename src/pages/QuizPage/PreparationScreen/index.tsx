@@ -12,6 +12,7 @@ export const PreparationScreen = ({ onComplete }: IPreparationScreenProps) => {
   const countdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Create a timer that runs every 1 second
     const timer = setInterval(() => {
       setCount((prev) => prev - 1);
     }, 1000);
@@ -25,7 +26,7 @@ export const PreparationScreen = ({ onComplete }: IPreparationScreenProps) => {
         opacity: 0,
         duration: 1,
         ease: "power3.out",
-        onComplete: () => onComplete(), // Notify parent that preparation is complete
+        onComplete: () => onComplete(), // Notify parent that preparation is complete and the user can will the quiz
       });
     }
 

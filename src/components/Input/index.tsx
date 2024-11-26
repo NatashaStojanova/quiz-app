@@ -8,7 +8,7 @@ interface IInputProps {
   placeholder?: string;
   required?: boolean;
   validationMessage?: string;
-  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void; // Add onKeyPress
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void; // Updated to onKeyDown
 }
 
 export const Input = ({
@@ -17,7 +17,7 @@ export const Input = ({
   placeholder = "",
   required = false,
   validationMessage,
-  onKeyPress, // Add onKeyPress
+  onKeyDown, // Updated to onKeyDown
 }: IInputProps) => {
   const [isTouched, setIsTouched] = React.useState(false);
 
@@ -31,7 +31,7 @@ export const Input = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onBlur={handleBlur}
-        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         required={required}
       />

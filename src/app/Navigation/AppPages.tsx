@@ -1,6 +1,6 @@
 import loadable from "@loadable/component";
-import { ChunksLoader } from "components/ChunksLoader";
 import { retry } from "helpers/helperFunctions";
+import { ChunksLoader } from "components/ChunksLoader";
 
 export const AsyncWelcomePage = loadable(
   () =>

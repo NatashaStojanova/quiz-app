@@ -82,7 +82,6 @@ export const Table = <T extends object>({
           })}
         </tbody>
       </StyledTable>
-
       <Paginator
         currentPage={currentPage}
         lastPage={totalPages}

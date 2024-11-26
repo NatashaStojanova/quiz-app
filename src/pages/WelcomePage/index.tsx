@@ -41,7 +41,7 @@ const WelcomePage = () => {
       <Input
         value={inputValue}
         onChange={setInputValue}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="Enter your name"
         required
         validationMessage="*Name is a required field"

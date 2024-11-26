@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import { useTheme } from "styled-components";
+import gsap from "gsap";
 import { ProgressBarWrapper, Progress } from "./style";
 
 interface IProgressBarProps {

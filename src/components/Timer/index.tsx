@@ -22,11 +22,13 @@ export const Timer = ({
 
   useEffect(() => {
     if (!shouldRun) {
-      setTime(0); // Stop the timer for already answered questions
+      // Stop the timer for already answered questions
+      setTime(0);
       return;
     }
 
-    setTime(initialTime); // Reset the timer to the initial time
+    // Reset the timer to the initial time
+    setTime(initialTime);
   }, [shouldRun, initialTime]);
 
   useEffect(() => {

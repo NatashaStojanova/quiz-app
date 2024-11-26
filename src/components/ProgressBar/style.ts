@@ -12,7 +12,7 @@ export const ProgressBarWrapper = styled.div`
 `;
 
 export const Progress = styled.div.withConfig({
-  shouldForwardProp: (prop) => !progressPropsToFilter.includes(prop), // Exclude `progress` from being passed to the DOM
+  shouldForwardProp: (prop) => !progressPropsToFilter.includes(prop), // Exclude "progress" from being passed to the DOM
 })<{ progress: number }>`
   width: ${({ progress }) =>
     `${progress}%`}; /* Use progress to control width */
